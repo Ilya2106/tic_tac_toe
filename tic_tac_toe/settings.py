@@ -147,7 +147,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Tic tac toe Team noreply@ttt.com'
 
 
-BASE_URL = "http://<ip_from_digital_ocean>"
+BASE_URL = "http://194.67.97.123"
 
 CHANNEL_LAYERS = {
     "default": {
