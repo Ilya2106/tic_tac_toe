@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%n$@#icf=zyg22g)i%f)b#f349qv_tk%bnfc3695@)=iu(gz7c"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ilya-shevelev.ru', 'www.ilya-shevelev.ru', '194.67.97.123']
 
 
 # Application definition
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "tic_tac_toe.urls"
+ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
 TEMPLATES = [
     {
@@ -74,17 +75,21 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = "tic_tac_toe.wsgi.application"
-ASGI_APPLICATION = "tic_tac_toe.asgi.application"
+WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
+ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -111,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
